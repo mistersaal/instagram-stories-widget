@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
 use Illuminate\Support\Facades\Cache;
 
-class InstagramWeb
+class InstagramBaseWebClient
 {
     private $login;
     private $password;
@@ -23,7 +23,7 @@ class InstagramWeb
     protected $client;
 
     /**
-     * InstagramWeb constructor.
+     * InstagramBaseWebClient constructor.
      * @param $login
      * @param $password
      * @throws InstagramLoginException
