@@ -7,6 +7,18 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
+## Действия после клонирования репозитория
+
+- в openserver в доменах включить "Ручное + Автопоиск", и прописать имя домена, ссылающиеся на папку public
+- ```composer install```
+- скопироват .env.example в .env
+- ```php artisan key:generate```
+- создать пустую базу
+- сконфигурировать .env файл
+- ```php artisan migrate --seed```
+- ```npm install```
+- ```npm run dev```
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
