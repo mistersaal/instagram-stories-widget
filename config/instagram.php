@@ -11,4 +11,7 @@ return [
     'baseUrl' => 'https://www.instagram.com',
     'encryptionKeyUrl' => '/data/shared_data/',
 
+    'highlights' => [
+        'url' => '/stories/highlights/'
+    ]
 ];
