@@ -10,6 +10,24 @@ class Story implements Jsonable, Arrayable
 {
     /** @var string */
     private $url;
+    /** @var bool */
+    private $isVideo = false;
+
+    /**
+     * @return bool
+     */
+    public function isVideo(): bool
+    {
+        return $this->isVideo;
+    }
+
+    /**
+     * @param bool $isVideo
+     */
+    public function setIsVideo(bool $isVideo): void
+    {
+        $this->isVideo = $isVideo;
+    }
 
     /**
      * @return string
@@ -41,7 +59,8 @@ class Story implements Jsonable, Arrayable
     public function toArray()
     {
         return [
-            'url' => $this->getUrl()
+            'url' => $this->getUrl(),
+            'isVideo' => $this->isVideo()
         ];
     }
 }

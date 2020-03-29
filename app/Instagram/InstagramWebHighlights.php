@@ -128,8 +128,13 @@ class InstagramWebHighlights
             $highlightStories = $notParsedHighlightStories->firstWhere('id', $id)['items'];
             $stories = new Collection();
             foreach ($highlightStories as $highlightStory) {
-                $storyUrl = $highlightStory['display_url'];
                 $story = new Story();
+                if ($highlightStory['is_video']) {
+                    $story->setIsVideo(true);
+                    $storyUrl = collect($highlightStory['video_resources'])->last()['src'];
+                } else {
+                    $storyUrl = $highlightStory['display_url'];
+                }
                 $story->setUrl($storyUrl);
                 $stories->push($story);
             }
