@@ -19,5 +19,5 @@ Route::get('/', function () {
 });
 
 Route::get('/highlights/{id}', function (InstagramHighlightsInterface $inst, $id) {
-    dd($inst->getHighlights($id));
+    return $inst->getHighlights($id);
 });

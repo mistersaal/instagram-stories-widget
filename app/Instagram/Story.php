@@ -3,8 +3,10 @@
 
 namespace App\Instagram;
 
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Jsonable;
 
-class Story
+class Story implements Jsonable, Arrayable
 {
     /** @var string */
     private $url;
@@ -25,4 +27,21 @@ class Story
         $this->url = $url;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function toJson($options = 0)
+    {
+        return json_encode($this->toArray(), $options);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function toArray()
+    {
+        return [
+            'url' => $this->getUrl()
+        ];
+    }
 }

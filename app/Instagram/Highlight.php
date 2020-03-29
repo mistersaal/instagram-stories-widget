@@ -4,9 +4,11 @@
 namespace App\Instagram;
 
 
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Collection;
 
-class Highlight
+class Highlight implements Jsonable, Arrayable
 {
     /** @var int */
     private $id;
@@ -94,5 +96,24 @@ class Highlight
     public function getLink(): string
     {
         return $this->baseUrl . $this->id;
+    }
+
+    public function toJson($options = 0)
+    {
+        return json_encode($this->toArray(), $options);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function toArray()
+    {
+        return [
+            'id' => $this->getId(),
+            'title' => $this->getTitle(),
+            'preview' => $this->getPreview(),
+            'link' => $this->getLink(),
+            'stories' => $this->getStories()->toArray()
+        ];
     }
 }
