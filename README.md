@@ -10,6 +10,7 @@
 ## Действия после клонирования репозитория
 
 - в openserver в доменах включить "Ручное + Автопоиск", и прописать имя домена, ссылающиеся на папку public
+![Image of OpenServer](https://sun9-49.userapi.com/4jqBIgXiNmWDzVZ5_2eGF-bsHKPtzFnUPDtncw/6p-lKdD1DXk.jpg)
 - ```composer install```
 - скопироват .env.example в .env
 - ```php artisan key:generate```
