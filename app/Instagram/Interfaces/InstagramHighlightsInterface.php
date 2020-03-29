@@ -7,7 +7,7 @@ namespace App\Instagram\Interfaces;
 use App\Instagram\Highlight;
 use Illuminate\Support\Collection;
 
-interface InstagramHighlights
+interface InstagramHighlightsInterface
 {
     /**
      * @param int $userId

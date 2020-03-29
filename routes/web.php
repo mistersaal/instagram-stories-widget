@@ -1,5 +1,6 @@
 <?php
 
+use \App\Instagram\Interfaces\InstagramHighlightsInterface;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/highlights/{id}', function (InstagramHighlightsInterface $inst, $id) {
+    dd($inst->getHighlights($id));
 });
