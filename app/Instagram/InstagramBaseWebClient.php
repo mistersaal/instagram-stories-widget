@@ -4,6 +4,7 @@ namespace App\Instagram;
 
 
 use App\Exceptions\Instagram\InstagramLoginException;
+use App\Exceptions\Instagram\InstagramQueryException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
 use Illuminate\Support\Facades\Cache;
@@ -48,11 +49,12 @@ class InstagramBaseWebClient
 
     /**
      * Login instagram
+     * @param bool $noCache
      * @throws InstagramLoginException
      */
-    protected function login()
+    protected function login(bool $noCache = false)
     {
-        if (Cache::has('cookies')) {
+        if (Cache::has('cookies') && ! $noCache) {
             $this->cookies = Cache::get('cookies');
             return;
         }
@@ -61,7 +63,6 @@ class InstagramBaseWebClient
         $this->client->request('GET', '/', [
             'cookies' => $this->cookies
         ]);
-        $csrf = $this->getCsrfToken();
 
         //Имитация задержки ввода
         sleep(5);
@@ -77,7 +78,7 @@ class InstagramBaseWebClient
         $loginResponse = $this->client->request('POST', 'accounts/login/ajax/', [
             'cookies' => $this->cookies,
             'headers' => [
-                'x-csrftoken' => $csrf
+                'x-csrftoken' => $this->getCsrfToken()
             ],
             'form_params' => $data
         ]);
@@ -104,5 +105,39 @@ class InstagramBaseWebClient
     private function getEncryptedPassword() :string
     {
         return '#PWD_INSTAGRAM_BROWSER:0:' . time() . ':' . $this->password;
+    }
+
+    /**
+     * @param string $queryHash
+     * @param array $variables
+     * @param bool $noRelogin
+     * @return array
+     * @throws InstagramLoginException
+     * @throws InstagramQueryException
+     */
+    public function get(string $queryHash, array $variables, bool $noRelogin = false) :array
+    {
+        $result = $this->client->request('GET', 'graphql/query/', [
+            'cookies' => $this->cookies,
+            'headers' => [
+                'x-csrftoken' => $this->getCsrfToken()
+            ],
+            'query' => [
+                'query_hash' => $queryHash,
+                'variables' => json_encode($variables)
+            ]
+        ]);
+        if ($result->getStatusCode() !== 200) {
+            if ($result->getStatusCode() === 500 && ! $noRelogin) {
+                $this->login(true);
+                return $this->get($queryHash, $variables, true);
+            } else {
+                throw new InstagramQueryException('Неизвестная ошибка при запросе ' .
+                    $queryHash . ': ' .
+                    $result->getStatusCode() . ' ' . $result->getBody()
+                );
+            }
+        }
+        return json_decode($result->getBody(), true);
     }
 }
