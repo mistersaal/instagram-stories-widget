@@ -19,6 +19,47 @@
 - ```npm install```
 - ```npm run dev```
 
+## Пример данных об историях
+
+```$xslt
+http://instagram-stories-widget/highlights/31486096301
+
+    [
+        {
+            "id": 17851607701915192,
+            "title": "test2",
+            "preview": "https://scontent-arn2-1.cdninstagram.com/v/t51.12442-15/e35/c0.587.1080.1080a/s150x150/91399399_214543699856167_3119381776959804400_n.jpg?_nc_ht=scontent-arn2-1.cdninstagram.com&_nc_cat=107&_nc_ohc=p_E4RNiQ6_UAX9aDtnS&oh=68b546ea3fff3e2830808b5400debe16&oe=5E838599",
+            "link": "https://www.instagram.com/stories/highlights/17851607701915192",
+            "stories": [
+                {
+                    "url": "https://scontent-arn2-2.cdninstagram.com/v/t50.12441-16/91424896_603112747079756_5636534366765539518_n.mp4?_nc_ht=scontent-arn2-2.cdninstagram.com&_nc_cat=108&_nc_ohc=26FXsU8OiU4AX9u64Df&oe=5E832098&oh=251e0eb8ebf816fbaed8751957c8a83c",
+                    "isVideo": true
+                },
+                {
+                    "url": "https://scontent-arn2-1.cdninstagram.com/v/t51.12442-15/e35/91350682_2551742055075390_4338711755414610074_n.jpg?_nc_ht=scontent-arn2-1.cdninstagram.com&_nc_cat=106&_nc_ohc=E8qcHVr0oSQAX9GfDP9&oh=43c569ace8bcd25cc729f108c0907558&oe=5E8341ED",
+                    "isVideo": false
+                },
+                {
+                    "url": "https://scontent-arn2-1.cdninstagram.com/v/t51.12442-15/e35/91399399_214543699856167_3119381776959804400_n.jpg?_nc_ht=scontent-arn2-1.cdninstagram.com&_nc_cat=107&_nc_ohc=p_E4RNiQ6_UAX9aDtnS&oh=c95b8f684bfaf2e98d898555ebab9226&oe=5E832E4B",
+                    "isVideo": false
+                }
+            ]
+        },
+        {
+            "id": 17874396223567824,
+            "title": "test",
+            "preview": "https://scontent-arn2-1.cdninstagram.com/v/t51.12442-15/e35/c0.587.1080.1080a/s150x150/82894124_195035088394953_7013364763523042045_n.jpg?_nc_ht=scontent-arn2-1.cdninstagram.com&_nc_cat=109&_nc_ohc=06xngFG0t6AAX9WQ2Ai&oh=a6072eaf975437c6e84fa10774909936&oe=5E8373BD",
+            "link": "https://www.instagram.com/stories/highlights/17874396223567823",
+            "stories": [
+                {
+                    "url": "https://scontent-arn2-1.cdninstagram.com/v/t51.12442-15/e35/82894124_195035088394953_7013364763523042045_n.jpg?_nc_ht=scontent-arn2-1.cdninstagram.com&_nc_cat=109&_nc_ohc=06xngFG0t6AAX9WQ2Ai&oh=08db752180889e7586269acbefd38cf5&oe=5E834F6F",
+                    "isVideo": false
+                }
+            ]
+        }
+    ]
+```
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
