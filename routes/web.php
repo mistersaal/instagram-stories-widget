@@ -21,3 +21,7 @@ Route::get('/', function () {
 Route::get('/highlights/{id}', function (InstagramHighlightsInterface $inst, $id) {
     return $inst->getHighlights($id);
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
