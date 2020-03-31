@@ -72,9 +72,9 @@ class InstagramWebHighlights
         foreach ($notParsedHighlights as $notParsedHighlight) {
             $notParsedHighlight = $notParsedHighlight['node'];
             $highlight = new Highlight();
-            $highlight->setId($notParsedHighlight['id']);
-            $highlight->setTitle($notParsedHighlight['title']);
-            $highlight->setPreview($notParsedHighlight['cover_media_cropped_thumbnail']['url']);
+            $highlight->id = $notParsedHighlight['id'];
+            $highlight->title = $notParsedHighlight['title'];
+            $highlight->preview = $notParsedHighlight['cover_media_cropped_thumbnail']['url'];
             $highlights->push($highlight);
         }
         return $highlights;
@@ -89,7 +89,7 @@ class InstagramWebHighlights
     private function setHighlightStories(Collection $highlights): void
     {
         $highlightIds = $highlights->map(function ($item, $key) {
-            return (string) $item->getId();
+            return (string) $item->id;
         })->toArray();
         $query_hash = 'f5dc1457da7a4d3f88762dae127e0238';
         $response = $this->get(
@@ -124,21 +124,21 @@ class InstagramWebHighlights
     {
         $notParsedHighlightStories = collect($notParsedHighlightStories);
         foreach ($highlights as $highlight) {
-            $id = (string) $highlight->getId();
+            $id = (string) $highlight->id;
             $highlightStories = $notParsedHighlightStories->firstWhere('id', $id)['items'];
             $stories = new Collection();
             foreach ($highlightStories as $highlightStory) {
                 $story = new Story();
                 if ($highlightStory['is_video']) {
-                    $story->setIsVideo(true);
+                    $story->isVideo = true;
                     $storyUrl = collect($highlightStory['video_resources'])->last()['src'];
                 } else {
                     $storyUrl = $highlightStory['display_url'];
                 }
-                $story->setUrl($storyUrl);
+                $story->url = $storyUrl;
                 $stories->push($story);
             }
-            $highlight->setStories($stories);
+            $highlight->stories = $stories;
         }
     }
 }
