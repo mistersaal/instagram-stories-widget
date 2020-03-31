@@ -3,8 +3,6 @@
 
 namespace App\Instagram;
 
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Contracts\Support\Jsonable;
 use Jenssegers\Mongodb\Eloquent\Model;
 
 /**
@@ -13,7 +11,7 @@ use Jenssegers\Mongodb\Eloquent\Model;
  * @property string $url
  * @property bool $isVideo
  */
-class Story extends Model implements Jsonable, Arrayable
+class Story extends Model
 {
     protected $fillable = ['url', 'isVideo'];
     public $timestamps = false;

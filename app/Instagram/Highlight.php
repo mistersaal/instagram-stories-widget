@@ -4,8 +4,6 @@
 namespace App\Instagram;
 
 
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Collection;
 use Jenssegers\Mongodb\Eloquent\Model;
 
@@ -18,7 +16,7 @@ use Jenssegers\Mongodb\Eloquent\Model;
  * @property string $preview
  * @property Collection|Story[] $stories
  */
-class Highlight extends Model implements Jsonable, Arrayable
+class Highlight extends Model
 {
     /** @var string */
     private $baseUrl;
