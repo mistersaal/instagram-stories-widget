@@ -5,13 +5,14 @@ namespace App\Instagram\Interfaces;
 
 
 use App\Instagram\Highlight;
+use App\Instagram\InstagramAccount;
 use Illuminate\Support\Collection;
 
 interface InstagramHighlightsInterface
 {
     /**
-     * @param int $userId
+     * @param InstagramAccount $account
      * @return Collection|Highlight[]
      */
-    function getHighlights(int $userId): Collection;
+    function getHighlights(InstagramAccount $account): Collection;
 }

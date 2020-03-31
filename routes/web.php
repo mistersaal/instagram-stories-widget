@@ -19,7 +19,7 @@ Route::get('/', function () {
 });
 
 Route::get('/highlights/{id}', function (InstagramHighlightsInterface $inst, $id) {
-    $highlights = $inst->getHighlights($id);
+    $highlights = $inst->getHighlights(new \App\Instagram\InstagramAccount(['userId' => $id]));
     dump($highlights);
     if (auth()->check()) {
         $user = auth()->user();

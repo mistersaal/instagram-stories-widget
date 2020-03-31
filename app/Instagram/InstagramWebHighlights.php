@@ -15,15 +15,15 @@ class InstagramWebHighlights
 {
 
     /**
-     * @param int $userId
+     * @param InstagramAccount $account
      * @return Collection|Highlight[]
      * @throws InstagramHighlightsException
      * @throws InstagramLoginException
      * @throws InstagramQueryException
      */
-    public function getHighlights(int $userId): Collection
+    public function getHighlights(InstagramAccount $account): Collection
     {
-        $highlights = $this->getHighlightGroups($userId);
+        $highlights = $this->getHighlightGroups($account->userId);
         $this->setHighlightStories($highlights);
 
         return $highlights;
@@ -88,7 +88,7 @@ class InstagramWebHighlights
      */
     private function setHighlightStories(Collection $highlights): void
     {
-        $highlightIds = $highlights->map(function ($item, $key) {
+        $highlightIds = $highlights->map(function ($item) {
             return (string) $item->id;
         })->toArray();
         $query_hash = 'f5dc1457da7a4d3f88762dae127e0238';
