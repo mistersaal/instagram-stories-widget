@@ -23,6 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $highlights = auth()->user()->highlights;
+        return view('home')->with(compact('highlights'));
     }
 }

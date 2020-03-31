@@ -1,3 +1,6 @@
+@php /**
+ * @var \Illuminate\Support\Collection|\App\Instagram\Highlight[] $highlights
+ */ @endphp
 @extends('layouts.app')
 
 @section('content')
@@ -14,7 +17,24 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    You are logged in! <br><br>
+
+                    Highlights:<br>
+                    <ul>
+                    @foreach($highlights as $highlight)
+                        <li>{{ $highlight->title }}:
+                            <ul>
+                                @foreach($highlight->stories as $story)
+                                    <li>
+                                        <a href="{{ $story->url }}" target="_blank">
+                                            {{ $story->isVideo ? 'Video' : 'Photo' }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @endforeach
+                    </ul>
                 </div>
             </div>
         </div>

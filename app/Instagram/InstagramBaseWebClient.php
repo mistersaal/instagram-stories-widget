@@ -16,8 +16,6 @@ class InstagramBaseWebClient
     private $userAgent;
     protected $baseUrl;
 
-    private $encryptionKeyUrl;
-
     /** @var CookieJar */
     protected $cookies;
     /** @var Client */
@@ -35,7 +33,6 @@ class InstagramBaseWebClient
         $this->password = $password ?? config('instagram.auth.password');
         $this->userAgent = config('instagram.auth.userAgent');
         $this->baseUrl = config('instagram.baseUrl');
-        $this->encryptionKeyUrl = config('instagram.encryptionKeyUrl'); //TODO: убрать это поле, если больше не нужно
         $this->client = new Client([
             'headers' => [
                 'User-Agent' => $this->userAgent,
@@ -129,6 +126,7 @@ class InstagramBaseWebClient
         ]);
         if ($result->getStatusCode() !== 200) {
             if ($result->getStatusCode() === 500 && ! $noRelogin) {
+                dump('relogin'); //TODO: убрать отладку
                 $this->login(true);
                 return $this->get($queryHash, $variables, true);
             } else {
@@ -138,6 +136,7 @@ class InstagramBaseWebClient
                 );
             }
         }
+        dump('correct login'); //TODO: убрать отладку
         return json_decode($result->getBody(), true);
     }
 }
