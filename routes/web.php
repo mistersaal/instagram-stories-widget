@@ -18,14 +18,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/highlights/{id}', function (InstagramHighlightsInterface $inst, $id) {
-    $highlights = $inst->getHighlights(new \App\Instagram\InstagramAccount(['userId' => $id]));
+Route::get('/highlights/', function (InstagramHighlightsInterface $inst) {
+    $highlights = $inst->getHighlights(auth()->user()->instagramAccount);
     dump($highlights);
     if (auth()->check()) {
         $user = auth()->user();
         $user->highlights = $highlights;
         $user->save();
     }
+});
+Route::get('/test', function (\App\Instagram\InstagramApiAuthentication $apiClient) {
+    $user = auth()->user();
+    $user->instagramAccount = $apiClient->getNewUser();
+    $user->save();
+    return ['status' => 'OK'];
 });
 
 Auth::routes();

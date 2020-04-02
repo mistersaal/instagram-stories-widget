@@ -17,7 +17,8 @@
                         </div>
                     @endif
 
-                    You are logged in! <br><br>
+                    You are logged in! <br>
+                    <button type="button" id="loginFB" data-loggedin="false">Вход через Facebook</button><br>
 
                     Highlights:<br>
                     <ul>

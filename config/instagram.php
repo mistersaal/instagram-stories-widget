@@ -13,5 +13,11 @@ return [
 
     'highlights' => [
         'url' => '/stories/highlights/'
+    ],
+
+    'api' => [
+        'app_id' => env('INSTAGRAM_APP_ID'),
+        'app_secret' => env('INSTAGRAM_APP_SECRET'),
+        'default_graph_version' => env('INSTAGRAM_API_VERSION')
     ]
 ];

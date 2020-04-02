@@ -18,7 +18,8 @@
         "ext-openssl": "*",
         "mongodb/mongodb": "1.6.*",
         "jenssegers/mongodb": "dev-develop",
-        "laravel/ui": "2.0.*"
+        "laravel/ui": "2.0.*",
+        "facebook/graph-sdk": "5.7.*"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
