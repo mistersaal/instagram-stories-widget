@@ -31,7 +31,9 @@ class InstagramApiAuthentication extends InstagramBaseApiClient
     {
         $this->createNewUser();
         $this->setNewLongLivedAccessToken();
-        $this->account->userId = $this->getInstagramUserId();
+        $businessId = $this->getInstagramBusinessId();
+        $this->account->businessId = $businessId;
+        $this->account->userId = $this->getInstagramUserId($businessId);
 
         return $this->account;
     }
@@ -70,18 +72,22 @@ class InstagramApiAuthentication extends InstagramBaseApiClient
         $this->account->accessToken = json_decode($response)->access_token; //TODO: тут тоже может быть ошибка
     }
 
-    public function getInstagramUserId()
+    public function getInstagramUserId($businessId = null)
     {
-        $businessId = $this->getInstagramBusinessId();
+        if (! $businessId) {
+            $businessId = $this->getInstagramBusinessId();
+        }
         return $this->fb->get(
-                '/' . $this->getInstagramBusinessId() . '?fields=ig_id',
+                '/' . $businessId . '?fields=ig_id',
                 $this->account->accessToken
             )->getDecodedBody()['ig_id']; //TODO: тут тоже может быть ошибка
     }
 
-    public function getInstagramBusinessId()
+    public function getInstagramBusinessId($accountPageId = null)
     {
-        $accountPageId = $this->getFacebookAccountId();
+        if (! $accountPageId) {
+            $accountPageId = $this->getFacebookAccountId();
+        }
         $businessAccount = $this->fb->get(
             '/' . $accountPageId . '?fields=instagram_business_account',
             $this->account->accessToken
