@@ -1,6 +1,7 @@
 <?php
 
 use \App\Instagram\Interfaces\InstagramHighlightsInterface;
+use App\Instagram\Interfaces\InstagramStoriesInterface;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,20 +19,23 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/highlights/', function (InstagramHighlightsInterface $inst) {
+Route::get('/highlights', function (InstagramHighlightsInterface $inst) {
     $highlights = $inst->getHighlights(auth()->user()->instagramAccount);
-    dump($highlights);
     if (auth()->check()) {
         $user = auth()->user();
         $user->highlights = $highlights;
         $user->save();
     }
+    return $highlights;
 });
 Route::get('/test', function (\App\Instagram\InstagramApiAuthentication $apiClient) {
     $user = auth()->user();
     $user->instagramAccount = $apiClient->getNewUser();
     $user->save();
     return ['status' => 'OK'];
+});
+Route::get('/stories', function (InstagramStoriesInterface $inst) {
+    return $inst->getStories(auth()->user()->instagramAccount);
 });
 
 Auth::routes();
