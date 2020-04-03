@@ -15,6 +15,8 @@ return [
         'url' => '/stories/highlights/'
     ],
 
+    'cacheMinutes' => 10,
+
     'api' => [
         'app_id' => env('INSTAGRAM_APP_ID'),
         'app_secret' => env('INSTAGRAM_APP_SECRET'),
