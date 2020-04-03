@@ -29,12 +29,8 @@ Route::get('/highlights', function (InstagramHighlightsInterface $inst) {
     }
     return $highlights;
 });
-Route::get('/test', function (\App\Instagram\InstagramApiAuthentication $apiClient) {
-    $user = auth()->user();
-    $user->instagramAccount = $apiClient->getNewUser();
-    $user->save();
-    return ['status' => 'OK'];
-});
+Route::post('/instagram/login', 'InstagramLoginController@login')->name('instagram.login');
+Route::delete('/instagram/logout', 'InstagramLoginController@logout')->name('instagram.logout');
 Route::get('/stories', function (InstagramStoriesInterface $inst) {
     return $inst->getStories(auth()->user()->instagramAccount);
 });
@@ -42,6 +38,8 @@ Route::get('/userdata', function (InstagramUserDataInterface $inst) {
     dump($inst->getNickname(auth()->user()->instagramAccount));
     dump($inst->getProfileImage(auth()->user()->instagramAccount));
 });
+
+//TODO: сделать middleware instagramAuth
 
 Auth::routes();
 

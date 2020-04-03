@@ -98,7 +98,7 @@
         document.getElementById('loginFB').onclick = function () {
             FB.login(function(response) {
                 if (response.authResponse) {
-                    fetch('/test')
+                    fetch('{{ route('instagram.login') }}', {method: 'POST'})
                         .then(response => console.log(response.json()));
                 } else {
                 }
