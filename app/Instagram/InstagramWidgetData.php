@@ -39,4 +39,9 @@ class InstagramWidgetData
 
         return compact('highlights', 'stories', 'userData');
     }
+
+    public function clearCache($id)
+    {
+        Cache::forget($id);
+    }
 }
