@@ -24,7 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $highlights = auth()->user()->highlights ?? new Collection();
-        return view('home')->with(compact('highlights'));
+        $user = auth()->user();
+        $hash = $user->_id;
+        $highlights = $user->highlights ?? new Collection();
+        return view('home')->with(compact('highlights', 'hash'));
     }
 }

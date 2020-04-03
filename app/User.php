@@ -4,6 +4,8 @@ namespace App;
 
 use App\Instagram\Highlight;
 use App\Instagram\InstagramAccount;
+use Illuminate\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 use Jenssegers\Mongodb\Eloquent\Model;
@@ -18,11 +20,12 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @property Collection|Highlight[]|array $highlights
  * @property InstagramAccount|array $instagramAccount
  */
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract, MustVerifyEmailContract
 {
     use Authenticatable;
     use Notifiable;
     use CanResetPassword;
+    use MustVerifyEmail;
 
 
     protected $connection = 'mongodb';
@@ -61,15 +64,19 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         parent::boot();
         static::retrieved(function (User $user) {
-            $user->highlights = collect($user->highlights)->map(function ($item) {
-                return new Highlight($item);
-            });
+            if ($user->highlights) {
+                $user->highlights = collect($user->highlights)->map(function ($item) {
+                    return new Highlight($item);
+                });
+            }
             if ($user->instagramAccount) {
                 $user->instagramAccount = new InstagramAccount($user->instagramAccount);
             }
         });
         static::saving(function (User $user) {
-            $user->highlights = $user->highlights->toArray();
+            if ($user->highlights) {
+                $user->highlights = $user->highlights->toArray();
+            }
             if ($user->instagramAccount) {
                 $user->instagramAccount = $user->instagramAccount->toArray();
             }

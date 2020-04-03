@@ -6,6 +6,7 @@ namespace App\Instagram;
 
 use App\Instagram\Interfaces\InstagramStoriesInterface;
 use App\User;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 
 class InstagramWidgetData
@@ -32,7 +33,7 @@ class InstagramWidgetData
             return back()->withErrors(['hash' => 'The hash field is invalid']);
         }
 
-        $highlights = $user->highlights;
+        $highlights = $user->highlights ?? new Collection();
         $stories = resolve(InstagramStoriesInterface::class)
             ->getStories($user->instagramAccount);
         $userData = $user->instagramAccount->getPublicData();

@@ -11,7 +11,7 @@ class InstagramLoginController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('verified');
     }
 
     public function login(InstagramApiAuthentication $instAuth, InstagramUserDataInterface $userData)

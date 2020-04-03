@@ -98,8 +98,17 @@
         document.getElementById('loginFB').onclick = function () {
             FB.login(function(response) {
                 if (response.authResponse) {
-                    fetch('{{ route('instagram.login') }}', {method: 'POST'})
-                        .then(response => console.log(response.json()));
+                    let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                    fetch('{{ route('instagram.login') }}', {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json, text-plain, */*",
+                            "X-Requested-With": "XMLHttpRequest",
+                            "X-CSRF-TOKEN": token
+                        },
+                        credentials: "same-origin",
+                    }).then(response => console.log(response.json()));
                 } else {
                 }
             }, {scope: 'pages_show_list,instagram_basic,instagram_manage_insights,public_profile'});

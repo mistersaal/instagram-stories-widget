@@ -18,6 +18,7 @@
                     @endif
 
                     You are logged in! <br>
+                    Hash: {{ $hash }} <br>
                     <button type="button" id="loginFB" data-loggedin="false">Вход через Facebook</button><br>
 
                     Highlights:<br>
