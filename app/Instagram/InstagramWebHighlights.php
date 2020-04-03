@@ -133,6 +133,7 @@ class InstagramWebHighlights
                     $story->isVideo = true;
                     $storyUrl = collect($highlightStory['video_resources'])->last()['src'];
                 } else {
+                    $story->isVideo = false;
                     $storyUrl = $highlightStory['display_url'];
                 }
                 $story->url = $storyUrl;
