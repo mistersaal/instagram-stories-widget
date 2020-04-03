@@ -126,7 +126,6 @@ class InstagramBaseWebClient
         ]);
         if ($result->getStatusCode() !== 200) {
             if ($result->getStatusCode() === 500 && ! $noRelogin) {
-                dump('relogin'); //TODO: убрать отладку
                 $this->login(true);
                 return $this->get($queryHash, $variables, true);
             } else {
@@ -136,7 +135,6 @@ class InstagramBaseWebClient
                 );
             }
         }
-        dump('correct login'); //TODO: убрать отладку
         return json_decode($result->getBody(), true);
     }
 }
