@@ -4,7 +4,6 @@
 namespace App\Instagram;
 
 
-use Facebook\Facebook;
 use Jenssegers\Mongodb\Eloquent\Model;
 
 /**
@@ -20,4 +19,12 @@ class InstagramAccount extends Model
 {
     public $timestamps = false;
     protected $fillable = ['userId', 'businessId', 'accessToken', 'nickname', 'image'];
+
+    public function getPublicData()
+    {
+        return [
+            'nickname' => $this->nickname,
+            'image' => $this->image
+        ];
+    }
 }
