@@ -1,7 +1,5 @@
 <?php
 
-use App\Instagram\Interfaces\InstagramStoriesInterface;
-use App\Instagram\Interfaces\InstagramUserDataInterface;
 use Illuminate\Support\Facades\Route;
 
 /*
