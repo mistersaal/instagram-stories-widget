@@ -25,6 +25,7 @@ Route::delete('/instagram', 'InstagramLoginController@logout')->name('instagram.
 Route::patch('/instagram/data', 'InstagramDataController@update')->name('instagram.data.update');
 
 Route::get('/instagram/widget/data', 'InstagramWidgetController@getData')->name('instagram.widget.data');
+Route::get('/instagram/widget', 'InstagramWidgetController@index')->name('instagram.widget');
 
 //TODO: сделать middleware instagramAuth
 
