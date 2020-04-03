@@ -2,6 +2,7 @@
 
 use \App\Instagram\Interfaces\InstagramHighlightsInterface;
 use App\Instagram\Interfaces\InstagramStoriesInterface;
+use App\Instagram\Interfaces\InstagramUserDataInterface;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +37,10 @@ Route::get('/test', function (\App\Instagram\InstagramApiAuthentication $apiClie
 });
 Route::get('/stories', function (InstagramStoriesInterface $inst) {
     return $inst->getStories(auth()->user()->instagramAccount);
+});
+Route::get('/userdata', function (InstagramUserDataInterface $inst) {
+    dump($inst->getNickname(auth()->user()->instagramAccount));
+    dump($inst->getProfileImage(auth()->user()->instagramAccount));
 });
 
 Auth::routes();

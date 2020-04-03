@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Instagram\InstagramWebHighlights;
-use App\Instagram\Interfaces\InstagramHighlightsInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
