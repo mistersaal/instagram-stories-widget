@@ -30,7 +30,10 @@ class InstagramWidgetData
     {
         $user = User::find($id);
         if (! $user) {
-            return back()->withErrors(['hash' => 'The hash field is invalid']);
+            return back()->withErrors(['hash' => 'The hash field is invalid.']);
+        }
+        if (! $user->instagramAccount) {
+            return back()->withErrors(['account' => 'Instagram account is not connected.']);
         }
 
         $highlights = $user->highlights ?? new Collection();

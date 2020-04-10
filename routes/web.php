@@ -26,8 +26,6 @@ Route::patch('/instagram/data', 'InstagramDataController@update')->name('instagr
 Route::get('/instagram/widget/data', 'InstagramWidgetController@getData')->name('instagram.widget.data');
 Route::get('/instagram/widget', 'InstagramWidgetController@index')->name('instagram.widget');
 
-//TODO: сделать middleware instagramAuth
-
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');

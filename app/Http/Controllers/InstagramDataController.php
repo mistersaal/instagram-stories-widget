@@ -11,7 +11,7 @@ class InstagramDataController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('verified');
+        $this->middleware(['verified', 'instagram.auth']);
     }
 
     public function update(
