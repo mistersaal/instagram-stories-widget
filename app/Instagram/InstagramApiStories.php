@@ -23,8 +23,8 @@ class InstagramApiStories
             '/' . $account->businessId . '/stories?fields=media_url,media_type',
             $account->accessToken
         )->getDecodedBody(); //TODO: может быть ошибка accessToken
-        $storiesData = $response['data'] ?? null;
-        if (! $storiesData) {
+        $storiesData = $response['data'] ?? false;
+        if ($storiesData === false) {
             throw new InstagramDataException(
                 'Отсутствуют необходимые данные в ответе сервера на getStories: ' .
                 json_encode($response)
