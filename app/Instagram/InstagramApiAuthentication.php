@@ -4,6 +4,7 @@
 namespace App\Instagram;
 
 
+use App\Exceptions\Instagram\InstagramDataException;
 use App\Exceptions\Instagram\InstagramLoginException;
 
 class InstagramApiAuthentication extends InstagramBaseApiClient
@@ -26,6 +27,7 @@ class InstagramApiAuthentication extends InstagramBaseApiClient
      * @return InstagramAccount|null
      * @throws InstagramLoginException
      * @throws \Facebook\Exceptions\FacebookSDKException
+     * @throws InstagramDataException
      */
     public function getNewUser()
     {
@@ -55,6 +57,7 @@ class InstagramApiAuthentication extends InstagramBaseApiClient
     /**
      * @return void
      * @throws \Facebook\Exceptions\FacebookSDKException
+     * @throws InstagramLoginException
      */
     public function setNewLongLivedAccessToken()
     {
@@ -69,18 +72,39 @@ class InstagramApiAuthentication extends InstagramBaseApiClient
             ],
             $this->account->accessToken
         )->getBody();
-        $this->account->accessToken = json_decode($response)->access_token; //TODO: тут тоже может быть ошибка
+        $this->account->accessToken = json_decode($response)->access_token ?? null;
+        if (! $this->account->accessToken) {
+            throw new InstagramLoginException(
+                'Отсутствуют необходимые данные в ответе сервера на setNewLongLivedAccessToken: ' .
+                json_encode($response)
+            );
+        }
     }
 
+    /**
+     * @param null $businessId
+     * @return mixed|null
+     * @throws InstagramDataException
+     * @throws \Facebook\Exceptions\FacebookSDKException
+     */
     public function getInstagramUserId($businessId = null)
     {
         if (! $businessId) {
             $businessId = $this->getInstagramBusinessId();
         }
-        return $this->fb->get(
-                '/' . $businessId . '?fields=ig_id',
-                $this->account->accessToken
-            )->getDecodedBody()['ig_id']; //TODO: тут тоже может быть ошибка
+        $response = $this->fb->get(
+            '/' . $businessId . '?fields=ig_id',
+            $this->account->accessToken
+        )->getDecodedBody();
+        $igId = $response['ig_id'] ?? null;
+
+        if (! $igId) {
+            throw new InstagramDataException(
+                'Отсутствуют необходимые данные в ответе сервера на getInstagramUserId: ' .
+                json_encode($response)
+            );
+        }
+        return $igId;
     }
 
     public function getInstagramBusinessId($accountPageId = null)

@@ -56,7 +56,7 @@ class InstagramWebHighlights
         if ($notParsedHighlights === false) {
             throw new InstagramHighlightsException(
                 'Отсутствуют необходимые данные в ответе сервера на getHighlightGroups: ' .
-                json_encode($notParsedHighlights)
+                json_encode($response)
             );
         }
         return $this->parseHighlightGroupsResponse($notParsedHighlights);
@@ -110,7 +110,7 @@ class InstagramWebHighlights
         if ($notParsedHighlightStories === false) {
             throw new InstagramHighlightsException(
                 'Отсутствуют необходимые данные в ответе сервера на setHighlightStories: ' .
-                json_encode($notParsedHighlightStories)
+                json_encode($response)
             );
         }
         $this->parseAndSetHighlightStoriesResponse($highlights, $notParsedHighlightStories);
