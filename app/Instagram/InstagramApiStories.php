@@ -22,7 +22,7 @@ class InstagramApiStories
         $response = $this->fb->get(
             '/' . $account->businessId . '/stories?fields=media_url,media_type',
             $account->accessToken
-        )->getDecodedBody(); //TODO: может быть ошибка accessToken
+        )->getDecodedBody(); //TODO: может быть ошибка accessToken (Facebook\Exceptions\FacebookAuthenticationException)
         $storiesData = $response['data'] ?? false;
         if ($storiesData === false) {
             throw new InstagramDataException(

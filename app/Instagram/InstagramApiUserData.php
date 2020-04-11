@@ -43,6 +43,6 @@ class InstagramApiUserData
         return $this->userData[$account->businessId] = $this->fb->get(
             '/' . $account->businessId . '?fields=username,profile_picture_url',
             $account->accessToken
-        )->getDecodedBody();//TODO: может быть ошибка accessToken
+        )->getDecodedBody();//TODO: может быть ошибка accessToken (Facebook\Exceptions\FacebookAuthenticationException)
     }
 }
