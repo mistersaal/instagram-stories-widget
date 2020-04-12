@@ -31,7 +31,7 @@ class Highlight extends Model
     public $timestamps = false;
 
 
-    public function __construct(array $attributes = [])
+    public function __construct(?array $attributes = [])
     {
         parent::__construct($attributes);
         if (is_array($this->stories) || is_null($this->stories)) {
