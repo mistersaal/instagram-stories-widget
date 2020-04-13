@@ -19,6 +19,7 @@
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "2.0.*",
+        "mistersaal/laravel-mongodb-embedded-models": "^1.0",
         "mongodb/mongodb": "1.6.*",
         "predis/predis": "^1.1"
     },

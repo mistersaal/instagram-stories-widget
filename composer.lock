@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6a982c0e01f1bbf6544e2e7073f77dc2",
+    "content-hash": "9ebda7f956a1c027b4cd9c12d57f5950",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -741,6 +741,7 @@
                     "email": "jakub.onderka@gmail.com"
                 }
             ],
+            "abandoned": "php-parallel-lint/php-console-color",
             "time": "2018-09-29T17:23:10+00:00"
         },
         {
@@ -787,6 +788,7 @@
                 }
             ],
             "description": "Highlight PHP code in terminal",
+            "abandoned": "php-parallel-lint/php-console-highlighter",
             "time": "2018-09-29T18:48:56+00:00"
         },
         {
@@ -1295,6 +1297,57 @@
                 "storage"
             ],
             "time": "2020-03-08T18:53:20+00:00"
+        },
+        {
+            "name": "mistersaal/laravel-mongodb-embedded-models",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mistersaal/laravel-mongodb-embedded-models.git",
+                "reference": "1596df3e92f4232e629335c2d8937f15cc21c4a2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mistersaal/laravel-mongodb-embedded-models/zipball/1596df3e92f4232e629335c2d8937f15cc21c4a2",
+                "reference": "1596df3e92f4232e629335c2d8937f15cc21c4a2",
+                "shasum": ""
+            },
+            "require": {
+                "jenssegers/mongodb": "dev-develop"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mistersaal\\Mongodb\\Embed\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Saal Stepan",
+                    "email": "mister.saal@yandex.ru"
+                }
+            ],
+            "description": "A more productive and simpler solution for embedding models in mongodb models than custom casts in Laravel.",
+            "homepage": "https://github.com/mistersaal/laravel-mongodb-embedded-models",
+            "keywords": [
+                "cast",
+                "database",
+                "eloquent",
+                "embed",
+                "embedMany",
+                "embedOne",
+                "jenssegers",
+                "laravel",
+                "model",
+                "moloquent",
+                "mongo",
+                "mongodb"
+            ],
+            "time": "2020-04-13T18:35:09+00:00"
         },
         {
             "name": "mongodb/mongodb",

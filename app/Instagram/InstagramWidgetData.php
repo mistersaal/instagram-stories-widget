@@ -47,7 +47,7 @@ class InstagramWidgetData
         $highlights = $user->highlights ?? new Collection();
         $stories = resolve(InstagramStoriesInterface::class)
             ->getStories($user->instagramAccount);
-        $userData = $user->instagramAccount->getPublicData();
+        $userData = $user->instagramAccount->toArray();
 
         return compact('highlights', 'stories', 'userData');
     }

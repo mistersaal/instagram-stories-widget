@@ -13,6 +13,8 @@ use Illuminate\Auth\Authenticatable as Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Mistersaal\Mongodb\Embed\HasEmbeddedModelsInterface;
+use Mistersaal\Mongodb\Embed\HasEmbeddedModels;
 
 /**
  * Class User
@@ -20,66 +22,40 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @property Collection|Highlight[]|array $highlights
  * @property InstagramAccount|array $instagramAccount
  */
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract, MustVerifyEmailContract
+class User extends Model
+    implements AuthenticatableContract, CanResetPasswordContract, MustVerifyEmailContract, HasEmbeddedModelsInterface
 {
     use Authenticatable;
     use Notifiable;
     use CanResetPassword;
     use MustVerifyEmail;
+    use HasEmbeddedModels;
 
 
     protected $connection = 'mongodb';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    public function __construct($attributes = []) {
+        parent::__construct($attributes);
+        $this->setEmbeddedAttributes();
+    }
+
     protected $fillable = [
         'name', 'email', 'password', 'highlights', 'instagramAccount'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * Cast highlights to collection of objects
-     */
-    protected static function boot()
-    {
-        parent::boot();
-        static::retrieved(function (User $user) {
-            if ($user->highlights) {
-                $user->highlights = collect($user->highlights)->map(function ($item) {
-                    return new Highlight($item);
-                });
-            }
-            if ($user->instagramAccount) {
-                $user->instagramAccount = new InstagramAccount($user->instagramAccount);
-            }
-        });
-        static::saving(function (User $user) {
-            if ($user->highlights) {
-                $user->highlights = $user->highlights->toArray();
-            }
-            if ($user->instagramAccount) {
-                $user->instagramAccount = $user->instagramAccount->toArray();
-            }
-        });
-    }
+    protected $embedMany = [
+        'highlights' => Highlight::class,
+    ];
+    protected $embedOne = [
+        'instagramAccount' => InstagramAccount::class,
+    ];
+
 }

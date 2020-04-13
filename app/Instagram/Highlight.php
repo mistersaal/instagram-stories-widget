@@ -4,6 +4,8 @@
 namespace App\Instagram;
 
 
+use Mistersaal\Mongodb\Embed\HasEmbeddedModelsInterface;
+use Mistersaal\Mongodb\Embed\HasEmbeddedModels;
 use Illuminate\Support\Collection;
 use Jenssegers\Mongodb\Eloquent\Model;
 
@@ -14,10 +16,12 @@ use Jenssegers\Mongodb\Eloquent\Model;
  * @property int $id
  * @property string $title
  * @property string $preview
- * @property Collection|Story[] $stories
+ * @property Collection|Story[]|array $stories
  */
-class Highlight extends Model
+class Highlight extends Model implements HasEmbeddedModelsInterface
 {
+    use HasEmbeddedModels;
+
     /** @var string */
     private $baseUrl;
 
@@ -25,42 +29,24 @@ class Highlight extends Model
     protected $fillable = [
         'id', 'title', 'preview', 'stories'
     ];
-    protected $guarded = [
+    protected $appends = [
         'link'
     ];
     public $timestamps = false;
+    public $embedMany = [
+        'stories' => Story::class,
+    ];
 
 
-    public function __construct(?array $attributes = [])
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
-        if (is_array($this->stories) || is_null($this->stories)) {
-            $this->stories = collect($this->stories)->map(function ($item) {
-                return new Story($item);
-            });
-        }
+        $this->setEmbeddedAttributes();
         $this->baseUrl = config('instagram.baseUrl') . config('instagram.highlights.url');
     }
 
-    /**
-     * @return string
-     */
-    public function link(): ?string
+    public function getLinkAttribute(): string
     {
         return $this->baseUrl . $this->id;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function toArray()
-    {
-        return [
-            'id' => $this->id,
-            'title' => $this->title,
-            'preview' => $this->preview,
-            'link' => $this->link(),
-            'stories' => $this->stories->toArray()
-        ];
     }
 }
